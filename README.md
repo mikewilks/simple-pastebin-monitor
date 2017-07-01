@@ -9,5 +9,5 @@ Running the script is easiest in a Linux screen or tmux and needs to be from the
 
 To Do
 
-Add email alert support
+Add email alert support, 
 Add pushbullet / pushover alert support
