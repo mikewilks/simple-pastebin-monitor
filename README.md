@@ -7,7 +7,4 @@ The script will check Pastebin for pastes every minute and compare their text ag
 
 Running the script is easiest in a Linux screen or tmux and needs to be from the location of the whitelisted IP in your Pastebin account. Pre-requisites are really just Python 3, a Pastenbin premium lifetime account and an internet connection.
 
-To Do
-
-Add email alert support, 
-Add pushbullet / pushover alert support
+Various To Dos are described in issues
