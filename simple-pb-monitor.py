@@ -32,7 +32,7 @@ while True :
                     text = p.text
                     #loop through the keywords to see if they are in the post
                     for word in keywords :
-                        if word in text :
+                        if word.lower() in text.lower() :
                             print ('Matched keyword \'{}\' and will save {}'.format(word, individual['key']))
                             # Save to current dir using the key as the filename
                             file_object = open(individual['key'], 'w')
