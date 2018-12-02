@@ -1,7 +1,21 @@
-import requests, time
+import requests, time, sys
+
+# Check for command line parameters for the keywords file and output directory
+# Start with defaults of ./keywords.txt and .
+
+# Start with defaults
+keyword_file = 'keywords.txt'
+output_path = '.'
+
+# keywords file as the first argument after the python file
+if len(sys.argv) > 1 :
+    keyword_file = (sys.argv)[1]
+
+# output directory as the second parameter after the python file
+if len(sys.argv) > 2 :
+    output_path = (sys.argv)[2]
 
 # Load the keywords
-keyword_file = 'keywords.txt'
 blacklist = []
 with open(keyword_file) as f:
     keywords = f.read().splitlines()
@@ -25,7 +39,7 @@ while True :
 
         # loop through the entries
         for individual in parsed_json :
-            # Now get the actual pastes if it is not in the last 100 check_list
+            # Now get the actual pastes if it is not in the last 1000 check_list
             if individual['key'] not in check_list :
                 p = requests.get (individual['scrape_url'])
                 if p.status_code == 200 :
@@ -35,7 +49,7 @@ while True :
                         if word.lower() in text.lower() :
                             print ('Matched keyword \'{}\' and will save {}'.format(word, individual['key']))
                             # Save to current dir using the key as the filename
-                            file_object = open(individual['key'], 'w')
+                            file_object = open(output_path+'/'+individual['key'], 'w')
                             file_object.write(text)
                             file_object.close()
 
