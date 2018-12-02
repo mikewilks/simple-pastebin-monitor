@@ -15,7 +15,7 @@ while True :
     print ("Starting a loop")
 
     # get the jsons from the scraping api
-    r = requests.get("https://pastebin.com/api_scraping.php?limit=100")
+    r = requests.get("https://scrape.pastebin.com/api_scraping.php?limit=100")
 
     # if it was successful parse
     if r.status_code == 200 :
