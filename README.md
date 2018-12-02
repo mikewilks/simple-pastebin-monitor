@@ -1,5 +1,5 @@
 # simple-pastebin-monitor
-A simple pastebin monitor using the scraping API (and now updated for the new scrpaing URL)
+A simple pastebin monitor using the scraping API (and now updated for the new scraping URL)
 
 A simple Python script that replicates and and extends Pastbin alerts. Makes use of the Pastebin Scraping API as described here https://pastebin.com/api_scraping_faq. A Pastebin PRO lifetime account is needed to get access the Scraping API (but they are only a few dollars).
 
