@@ -5,10 +5,21 @@ A simple Python script that replicates and and extends Pastbin alerts. Makes use
 
 The script will check Pastebin for pastes every minute and compare their text against the supplied keywords. When there is a match the text of the paste is saved this is an improvement over the built in alerts which only saves a link so removed pastes are missed if you don't click the link before they are taken down.
 
-Running the script is easiest in a Linux screen or tmux and needs to be from the location of the whitelisted IP in your Pastebin account. Pre-requisites are really just Python 3, a Pastebin PRO lifetime account and an internet connection.
+Running the script is easiest in a Linux screen or tmux and needs to be from the location of the whitelisted IP in your Pastebin account. Pre-requisites are really just Python 3,Requestsand a Pastebin PRO lifetime account and an internet connection.
 
 Various To Dos are described in issues 
 
 I blogged about this code here: http://www.mikewilks.com/home/who-has-your-data
 
 A Containerized version can be found at: https://hub.docker.com/r/mikewilks/simple-pastebin-monitor/
+
+# Docker instructions
+
+The container needs two vols mounting for output and input (containing a keywords.txt of things to search for). There is a sample of the keywords.txt on GitHub.
+
+A simple run command looks like:
+
+docker run -d --name simple-pastebin-monitor -v /path/to/dir-containing-keywords.txt:/input -v /path/to/store-pastes/output mikewilks/simple-pastebin-monitor
+
+
+This is an automated build from:  https://github.com/mikewilks/simple-pastebin-monitor
