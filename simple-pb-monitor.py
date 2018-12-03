@@ -6,6 +6,7 @@ import requests, time, sys
 # Start with defaults
 keyword_file = 'keywords.txt'
 output_path = '.'
+check_ip = False
 
 # keywords file as the first argument after the python file
 if len(sys.argv) > 1 :
@@ -15,7 +16,12 @@ if len(sys.argv) > 1 :
 if len(sys.argv) > 2 :
     output_path = (sys.argv)[2]
 
-# Load the keywords
+# Turn on the check for non-authed IP
+if len(sys.argv) > 3 :
+    if 'True' in (sys.argv)[3] :
+        check_ip = True
+
+    # Load the keywords
 blacklist = []
 with open(keyword_file) as f:
     keywords = f.read().splitlines()
@@ -30,6 +36,13 @@ while True :
 
     # get the jsons from the scraping api
     r = requests.get("https://scrape.pastebin.com/api_scraping.php?limit=100")
+
+    # Added a debug statement if the API is not authed, it has to be enabled through the params though to stop
+    # pastes containing the text causing false positives (especially as the response code is 200 regardless)
+    if check_ip :
+        if ("DOES NOT HAVE ACCESS")  in (str)(r.content) :
+           print (r.content)
+           exit (-1)
 
     # if it was successful parse
     if r.status_code == 200 :
