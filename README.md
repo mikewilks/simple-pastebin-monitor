@@ -10,3 +10,5 @@ Running the script is easiest in a Linux screen or tmux and needs to be from the
 Various To Dos are described in issues 
 
 I blogged about this code here: http://www.mikewilks.com/home/who-has-your-data
+
+A Containerized version can be found at: https://hub.docker.com/r/mikewilks/simple-pastebin-monitor/
