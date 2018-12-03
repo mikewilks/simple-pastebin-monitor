@@ -14,7 +14,7 @@ Running the script can be done in a screen / tmux or by using the built docker i
 
 There are various To Dos are described in issues on GitHub but these are probably a way off.
 
-I wrote about about this code on my [blog] (http://www.mikewilks.com/home/who-has-your-data)
+I wrote about about this code on my [blog](http://www.mikewilks.com/home/who-has-your-data)
 
 A Containerized version can be found on [Docker Hub](https://hub.docker.com/r/mikewilks/simple-pastebin-monitor/)
 
