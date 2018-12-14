@@ -21,8 +21,7 @@ if len(sys.argv) > 3 :
     if 'True' in (sys.argv)[3] :
         check_ip = True
 
-    # Load the keywords
-blacklist = []
+# Load the keywords
 with open(keyword_file) as f:
     keywords = f.read().splitlines()
 
