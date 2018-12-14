@@ -8,7 +8,7 @@ The script takes three parameters, you need to specify all or none:
 2. The directory to save the pastes into (default is .)
 3. Whether to check for the pastebin message that your IP is not authorized or not (default is false)
 
-The script will check Pastebin for pastes every minute and compare their text against the supplied keywords. When there is a match the text of the paste is saved to the output directory. This is an improvement over the built in Pastebin alerts which only saves a link which means you miss removed pastes if you don't click the link before they are taken down.
+The script will check Pastebin for pastes every minute and compare their text against the supplied keywords. When there is a match the text of the paste is saved to the output directory (in a directory with the name of the matched keyword). This is an improvement over the built in Pastebin alerts which only saves a link which means you miss removed pastes if you don't click the link before they are taken down.
 
 Running the script can be done in a screen / tmux or by using the built docker image. The machine where you run needs to be have its IP whitelisted in your Pastebin [account](https://pastebin.com/api_scraping_faq). Pre-requisites are really just Python 3, Requests, a Pastebin PRO account and an internet connection.
 
