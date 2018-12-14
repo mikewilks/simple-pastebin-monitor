@@ -1,4 +1,4 @@
-import requests, time, sys
+import requests, time, sys, os
 
 # Check for command line parameters for the keywords file and output directory
 # Start with defaults of ./keywords.txt and .
@@ -56,17 +56,24 @@ while True :
                 p = requests.get (individual['scrape_url'])
                 if p.status_code == 200 :
                     text = p.text
-                    #loop through the keywords to see if they are in the post
+                    # loop through the keywords to see if they are in the post
                     for word in keywords :
                         if word.lower() in text.lower() :
                             print ('Matched keyword \'{}\' and will save {}'.format(word, individual['key']))
+
+                            # Check whether the directory with the name of the keyword exists and create it if not
+                            if not os.path.isdir (output_path+'/'+word) :
+                                # Create the directory
+                                os.mkdir (output_path+'/'+word)
+
                             # Save to current dir using the key as the filename
-                            file_object = open(output_path+'/'+individual['key'], 'w')
+                            file_object = open(output_path+'/'+word+'/'+individual['key'], 'w')
                             file_object.write(text)
                             file_object.close()
 
-                            # break out so we don't save the paste multiple times if it contains multiple keywords
-                            break
+                         # Removed the break because we do want to save multiple times if multiple keywords are
+                         # matched because we now have a directory per key word '''
+
                     # Add to the checklist of the last 1000 so we don't fetch unnecessarily
                     if check_index == 999:
                         print("Reseting the checklist counter")
