@@ -70,7 +70,7 @@ while True:
                                 os.mkdir(output_path+'/'+word)
 
                             # Save to current dir using the key as the filename
-                            file_object = open(output_path+'/'+word+'/'+individual['key'], 'w')
+                            file_object = open(output_path+'/'+word+'/'+individual['key'], 'w', encoding="utf-8")
                             file_object.write(text)
                             file_object.close()
 
