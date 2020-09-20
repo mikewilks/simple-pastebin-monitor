@@ -14,7 +14,7 @@ on:
   pull_request:
 
 env:
-  IMAGE_NAME: simple_pastebin_monitor
+  IMAGE_NAME: simple-pastebin-monitor
 
 jobs:
   # Run tests.
