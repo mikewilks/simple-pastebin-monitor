@@ -16,14 +16,24 @@ There are various To Dos are described in issues on GitHub but these are probabl
 
 I wrote about about this code on my [blog](http://www.mikewilks.com/home/who-has-your-data)
 
-A Containerized version can be found on [Docker Hub](https://hub.docker.com/r/mikewilks/simple-pastebin-monitor/)
+A Containerized version can be found on [Docker Hub](https://hub.docker.com/r/mikewilks/simple-pastebin-monitor/) or you can pull it from the GitHub Container Registry e.g. docker pull ghcr.io/mikewilks/simple-pastebin-monitor:latest
 
-# Docker instructions
+# Container instructions
+
+There is an automated build pushed to Docker Hub from [GitHub repo](https://github.com/mikewilks/simple-pastebin-monitor).
+There is also a GitHub Action creating a container image on the GitHub Container Registry (ghcr.io/mikewilks/simple-pastebin-monitor:latest)
 
 The container needs two vols mounting for output and input (containing a keywords.txt of things to search for). There is a sample of the keywords.txt on GitHub but it is a simple CR separated list.
 
-A simple docker run command looks like:
+A simple run command using podman looks like:
 
-`docker run -d --name simple-pastebin-monitor -v /path/to/dir-containing-keywords.txt:/input -v /path/to/store-pastes:/output mikewilks/simple-pastebin-monitor`
+`podman run -d --name simple-pastebin-monitor -v /path/to/dir-containing-keywords.txt:/input -v /path/to/store-pastes:/output mikewilks/simple-pastebin-monitor`
 
-This is an automated build from a [GitHub repo](https://github.com/mikewilks/simple-pastebin-monitor)
+or with docker
+
+`sudo docker run -d --name simple-pastebin-monitor -v /path/to/dir-containing-keywords.txt:/input -v /path/to/store-pastes:/output mikewilks/simple-pastebin-monitor`
+
+or you can be explicit about the registry (in the example below Git Hub Container Registry)
+
+`podman run -d --name simple-pastebin-monitor -v /path/to/dir-containing-keywords.txt:/input -v /path/to/store-pastes:/output ghcr.io/mikewilks/simple-pastebin-monitor`
+
