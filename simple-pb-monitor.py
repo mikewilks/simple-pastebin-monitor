@@ -23,11 +23,9 @@ def notify(message_to_notify):
         assert e.response["error"]
         print(f"Error from Slack API: {e.response['error']}")
 
-# Check for command line parameters for the keywords file and output directory
-# Start with defaults of ./keywords.txt and .
 
 # Start with defaults
-keyword_file = 'keywords.txt'
+keyword_file_name = 'keywords.txt'
 slack_file_name = 'slack.json'
 output_path = '.'
 input_path = '.'
@@ -37,8 +35,9 @@ slack_token = ''
 slack_channel = ''
 
 
+# Check for command line parameters for the keywords file and output directory
 # keywords file as the first argument after the python file
-# Note this is changed in to input path not file in the slack notify changes
+# Note this is changed into input path not file in the slack notify changes
 if len(sys.argv) > 1:
     input_path = sys.argv[1]
 
@@ -46,13 +45,8 @@ if len(sys.argv) > 1:
 if len(sys.argv) > 2:
     output_path = sys.argv[2]
 
-# Turn on the check for non-authed IP
-if len(sys.argv) > 3:
-    if 'True' in sys.argv[3]:
-        check_ip = True
-
 # Load the keywords
-with open(os.path.join(input_path, keyword_file)) as f:
+with open(os.path.join(input_path, keyword_file_name)) as f:
     keywords = f.read().splitlines()
 
 print("keywords ", keywords)
@@ -77,13 +71,6 @@ while True:
     # get the jsons from the scraping api
     r = requests.get("https://scrape.pastebin.com/api_scraping.php?limit=100")
 
-    # Added a debug statement if the API is not authed, it has to be enabled through the params though to stop
-    # pastes containing the text causing false positives (especially as the response code is 200 regardless)
-    if check_ip:
-        if "DOES NOT HAVE ACCESS" in str(r.content):
-            print(r.content)
-            exit(-1)
-
     # if it was successful parse
     if r.status_code == 200:
 
@@ -104,12 +91,13 @@ while True:
                             print(message)
 
                             # Check whether the directory with the name of the keyword exists and create it if not
-                            if not os.path.isdir(output_path+'/'+word):
+                            if not os.path.isdir(os.path.join(output_path, word)):
                                 # Create the directory
-                                os.mkdir(output_path+'/'+word)
+                                os.mkdir(os.path.join(output_path, word))
 
                             # Save to current dir using the key as the filename
-                            file_object = open(output_path+'/'+word+'/'+individual['key'], 'w', encoding="utf-8")
+                            file_to_write = os.path.join(output_path, word, individual['key'])
+                            file_object = open(file_to_write, 'w', encoding="utf-8")
                             file_object.write(text)
                             file_object.close()
 
@@ -128,14 +116,10 @@ while True:
                     check_list.insert(check_index, individual['key'])
                     check_index = check_index + 1
             else:
-                print("Skipping {}, already processed".format(individual['key']))
-
+                print(f"Skipping {individual['key']}, already processed")
     else:
-        print("There was an error calling the url")
+        print("There was an error calling the url, check the IP is authorised on the pastebin site")
 
     # wait a minute
     print("Sleeping a minute")
     time.sleep(60)
-
-
-
