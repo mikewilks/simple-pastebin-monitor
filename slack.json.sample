@@ -1,0 +1,4 @@
+{
+  "slack_bot_key": "token_goes_here"
+  "channel": "#channel_name_here"
+}
