@@ -1,4 +1,4 @@
 FROM python:3
-ADD ./simple-pb-monitor.py /
+ADD simple_pb_monitor.py /
 RUN pip install requests slackclient
-CMD [ "python","./simple-pb-monitor.py","/input","/output" ]
+CMD [ "python","./simple_pb_monitor.py","/input","/output" ]

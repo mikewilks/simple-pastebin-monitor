@@ -1,9 +1,9 @@
-import requests
 import time
 import sys
 import os
 import ssl
 import json
+import requests
 from slack import WebClient
 from slack.errors import SlackApiError
 
@@ -24,9 +24,11 @@ def notify(message_to_notify):
         print(f"Error from Slack API: {e.response['error']}")
 
 
-# Start with defaults
-keyword_file_name = 'keywords.txt'
-slack_file_name = 'slack.json'
+# Constants
+KEYWORD_FILE_NAME = 'keywords.txt'
+SLACK_FILE_NAME = 'slack.json'
+
+# Defaults
 output_path = '.'
 input_path = '.'
 check_ip = False
@@ -46,14 +48,14 @@ if len(sys.argv) > 2:
     output_path = sys.argv[2]
 
 # Load the keywords
-with open(os.path.join(input_path, keyword_file_name)) as f:
+with open(os.path.join(input_path, KEYWORD_FILE_NAME)) as f:
     keywords = f.read().splitlines()
 
 print("keywords ", keywords)
 
 # if slack.json exists the we'll set up notifications
 # load parameters from file
-slack_file_path = os.path.join(input_path, slack_file_name)
+slack_file_path = os.path.join(input_path, SLACK_FILE_NAME)
 if os.path.isfile(slack_file_path):
     slack_file = open(slack_file_path, "r")
     slack_params = json.loads(slack_file.read())
@@ -90,7 +92,8 @@ while True:
                             message = f"Matched keyword {word} and will save {individual['key']}"
                             print(message)
 
-                            # Check whether the directory with the name of the keyword exists and create it if not
+                            # Check whether the directory with the name of the keyword
+                            # exists and create it if not
                             if not os.path.isdir(os.path.join(output_path, word)):
                                 # Create the directory
                                 os.mkdir(os.path.join(output_path, word))
@@ -105,8 +108,9 @@ while True:
                             if slack_notify:
                                 notify(message)
 
-                            # Removed the break because we do want to save multiple times if multiple keywords are
-                            # matched because we now have a directory per key word '''
+                            # Removed the break because we do want to save multiple times if
+                            # multiple keywords are matched because we now have a directory
+                            # per key word
 
                     # Add to the checklist of the last 1000 so we don't fetch unnecessarily
                     if check_index == 999:
