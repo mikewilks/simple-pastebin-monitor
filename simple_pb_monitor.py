@@ -1,14 +1,17 @@
-import time
-import sys
+"""Simple Pastebin Monitor"""
+import json
 import os
 import ssl
-import json
+import sys
+import time
+
 import requests
 from slack import WebClient
 from slack.errors import SlackApiError
 
 
 def notify(message_to_notify):
+    """Notify using the message given."""
     ssl_context = ssl.create_default_context()
     ssl_context.check_hostname = False
     ssl_context.verify_mode = ssl.CERT_NONE
@@ -18,17 +21,17 @@ def notify(message_to_notify):
             channel=slack_channel,
             text=message_to_notify)
         assert response["message"]["text"] == message
-    except SlackApiError as e:
-        assert e.response["ok"] is False
-        assert e.response["error"]
-        print(f"Error from Slack API: {e.response['error']}")
+    except SlackApiError as generated_exception:
+        assert generated_exception.response["ok"] is False
+        assert generated_exception.response["error"]
+        print(f"error from slack api: {generated_exception.response['error']}")
 
 
-# Constants
+# constants
 KEYWORD_FILE_NAME = 'keywords.txt'
 SLACK_FILE_NAME = 'slack.json'
 
-# Defaults
+# defaults
 output_path = '.'
 input_path = '.'
 check_ip = False
@@ -36,10 +39,9 @@ slack_notify = False
 slack_token = ''
 slack_channel = ''
 
-
-# Check for command line parameters for the keywords file and output directory
+# check for command line parameters for the keywords file and output directory
 # keywords file as the first argument after the python file
-# Note this is changed into input path not file in the slack notify changes
+# note this is changed into input path not file in the slack notify changes
 if len(sys.argv) > 1:
     input_path = sys.argv[1]
 
@@ -47,7 +49,7 @@ if len(sys.argv) > 1:
 if len(sys.argv) > 2:
     output_path = sys.argv[2]
 
-# Load the keywords
+# load the keywords
 with open(os.path.join(input_path, KEYWORD_FILE_NAME)) as f:
     keywords = f.read().splitlines()
 
@@ -68,7 +70,7 @@ check_index = 0
 check_list = []
 
 while True:
-    print("Starting a loop")
+    print("starting a loop")
 
     # get the jsons from the scraping api
     r = requests.get("https://scrape.pastebin.com/api_scraping.php?limit=100")
