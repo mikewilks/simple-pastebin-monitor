@@ -20,15 +20,21 @@ There are various To Dos described in issues on GitHub.
 
 I wrote about about this code on my [blog](http://www.mikewilks.com/home/who-has-your-data)
 
-A Containerised version can be found on [Docker Hub](https://hub.docker.com/r/mikewilks/simple-pastebin-monitor/) or you can pull it from the GitHub Container Registry e.g. docker pull ghcr.io/mikewilks/simple-pastebin-monitor:latest
+A Containerised version can be found on [Docker Hub](https://hub.docker.com/r/mikewilks/simple-pastebin-monitor/) or you can pull it from the GitHub Container Registry or quay.io e.g.
+
+    docker/podman pull ghcr.io/mikewilks/simple-pastebin-monitor:latest 
+    
+or 
+
+    docker/podman pull quay.io/mikewilks/simple-pastebin-monitor
 
 # Container instructions
 
-There is an automated build pushed to Docker Hub from [GitHub repo](https://github.com/mikewilks/simple-pastebin-monitor).
+There is an automated build pushed to [Docker Hub](https://hub.docker.com/repository/docker/mikewilks/simple-pastebin-monitor) from [GitHub repo](https://github.com/mikewilks/simple-pastebin-monitor).
 
-There is also a GitHub Action creating a container image on the GitHub Container Registry (ghcr.io/mikewilks/simple-pastebin-monitor:latest)
+There is also a GitHub Action creating a container image on the GitHub Container Registry - ghcr.io/mikewilks/simple-pastebin-monitor:latest
 
-A further image is available on quay.io (quay.io/mikewilks/simple-pastebin-monitor)
+A further image is available on quay.io - quay.io/mikewilks/simple-pastebin-monitor
 
 The container needs two vols mounting for output and input (containing a keywords.txt of things to search for and optional slack.json). There is a sample of the keywords.txt on GitHub but it is a simple CR separated list.
 
