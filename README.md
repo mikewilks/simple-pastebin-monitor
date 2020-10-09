@@ -25,7 +25,10 @@ A Containerised version can be found on [Docker Hub](https://hub.docker.com/r/mi
 # Container instructions
 
 There is an automated build pushed to Docker Hub from [GitHub repo](https://github.com/mikewilks/simple-pastebin-monitor).
+
 There is also a GitHub Action creating a container image on the GitHub Container Registry (ghcr.io/mikewilks/simple-pastebin-monitor:latest)
+
+A further image is available on quay.io (quay.io/mikewilks/simple-pastebin-monitor)
 
 The container needs two vols mounting for output and input (containing a keywords.txt of things to search for and optional slack.json). There is a sample of the keywords.txt on GitHub but it is a simple CR separated list.
 
