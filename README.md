@@ -36,6 +36,8 @@ There is also a GitHub Action creating a container image on the GitHub Container
 
 A further image is available on quay.io - quay.io/mikewilks/simple-pastebin-monitor
 
+[![SPBM Container Deployment](https://img.youtube.com/vi/g3au0bloiAM/0.jpg)](http://www.youtube.com/watch?v=g3au0bloiAM)
+
 The container needs two vols mounting for output and input (containing a keywords.txt of things to search for and optional slack.json). There is a sample of the keywords.txt on GitHub but it is a simple CR separated list.
 
 A simple run command using podman looks like:
