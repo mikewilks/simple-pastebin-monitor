@@ -1,7 +1,7 @@
 {
   "notification_urls": [
-    "mechanism1",
-    "mechanism2",
-    "mechanism3"
+    "url1",
+    "url2",
+    "url3"
   ]
 }
