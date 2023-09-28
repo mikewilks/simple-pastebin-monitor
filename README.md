@@ -13,7 +13,7 @@ The script takes two parameters, you need to specify both or neither:
 
 The script will check Pastebin for pastes every minute and compare their text against the supplied keywords. When there is a match the text of the paste is saved to the output directory (in a directory with the name of the matched keyword) and optionally notified via Slack. This is an improvement over the built-in Pastebin alerts which only saves a link meaning you miss removed pastes if you don't click the link before they are taken down.
 
-Running the script can be done in a screen / tmux or by using the built container image. The machine where you run needs to be have its IP whitelisted in your Pastebin [account](https://pastebin.com/api_scraping_faq). Pre-requisites are Python 3, Requests, apprise, a Pastebin PRO account and an internet connection.
+Running the script can be done in a screen / tmux or by using the built container image. The machine where you run needs to be have its IP whitelisted in your Pastebin [account](https://pastebin.com/doc_scraping_api). Pre-requisites are Python 3, Requests, apprise, a Pastebin PRO account and an internet connection.
 
 The notification is optional and is enabled by the presence of a file called notifications.json in the input directory. There is a sample of this file in the repo, it has a list of parameters in the [apprise format](https://github.com/caronc/apprise/wiki). The script will notify to all the mechanisms listed in the file.
 
