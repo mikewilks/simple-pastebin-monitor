@@ -1,47 +1,25 @@
 """Simple Pastebin Monitor"""
 import json
 import os
-import ssl
 import sys
 import time
-
+import apprise
 import requests
-from slack import WebClient
-from slack.errors import SlackApiError
-
-
-def notify(message_to_notify):
-    """Notify using the message given."""
-    ssl_context = ssl.create_default_context()
-    ssl_context.check_hostname = False
-    ssl_context.verify_mode = ssl.CERT_NONE
-    client = WebClient(token=slack_token, ssl=ssl_context)
-    try:
-        response = client.chat_postMessage(
-            channel=slack_channel,
-            text=message_to_notify)
-        assert response["message"]["text"] == message
-    except SlackApiError as generated_exception:
-        assert generated_exception.response["ok"] is False
-        assert generated_exception.response["error"]
-        print(f"error from slack api: {generated_exception.response['error']}")
 
 
 # constants
 KEYWORD_FILE_NAME = 'keywords.txt'
-SLACK_FILE_NAME = 'slack.json'
+NOTIF_FILE_NAME = 'notifications.json'
 
 # defaults
 output_path = '.'
 input_path = '.'
 check_ip = False
-slack_notify = False
-slack_token = ''
-slack_channel = ''
+notify = False
+apobj = ''
 
 # check for command line parameters for the keywords file and output directory
 # keywords file as the first argument after the python file
-# note this is changed into input path not file in the slack notify changes
 if len(sys.argv) > 1:
     input_path = sys.argv[1]
 
@@ -55,16 +33,19 @@ with open(os.path.join(input_path, KEYWORD_FILE_NAME)) as f:
 
 print("keywords ", keywords)
 
-# if slack.json exists the we'll set up notifications
+# if notifications.json exists then we'll set up notifications
 # load parameters from file
-slack_file_path = os.path.join(input_path, SLACK_FILE_NAME)
-if os.path.isfile(slack_file_path):
-    slack_file = open(slack_file_path, "r")
-    slack_params = json.loads(slack_file.read())
-    slack_file.close()
-    slack_notify = True
-    slack_token = slack_params["slack_bot_key"]
-    slack_channel = slack_params["channel"]
+notifications_file_path = os.path.join(input_path, NOTIF_FILE_NAME)
+if os.path.isfile(notifications_file_path):
+    notifications_file = open(notifications_file_path, "r")
+    notifications_params = json.loads(notifications_file.read())
+    notifications_file.close()
+
+    # set up the apprise object
+    apobj = apprise.Apprise()
+    for url in notifications_params['notification_urls']:
+        apobj.add(url)
+    notify = True
 
 check_index = 0
 check_list = []
@@ -106,9 +87,10 @@ while True:
                             file_object.write(text)
                             file_object.close()
 
-                            # Notify to slack if enabled
-                            if slack_notify:
-                                notify(message)
+                            # Notify if enabled
+                            if notify:
+                                apobj.notify(body=message, title="Pastebin Monitor")
+                                print("Notified")
 
                             # Removed the break because we do want to save multiple times if
                             # multiple keywords are matched because we now have a directory
