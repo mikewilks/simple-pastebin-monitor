@@ -1,3 +1,13 @@
+<div style="border: 2px solid red; padding: 10px; background-color: #ffe5e5;">
+<h2>Project Deprecated</h2>
+<p>This project is no longer functional due to changes in the Pastebin API. In April 2020, Pastebin removed the public scraping API that this script relies on, making it impossible to monitor all public pastes.</p>
+<p>For more information, see the following articles:</p>
+<ul>
+    <li><a href="https://portswigger.net/daily-swig/pastebin-api-changes-spark-concern-among-security-researchers">Pastebin API changes spark concern among security researchers (PortSwigger)</a></li>
+    <li><a href="https://thehustle.co/pastebin-the-website-where-hackers-dump-stolen-data/">Pastebin, the website where hackers dump stolen data (The Hustle)</a></li>
+</ul>
+</div>
+
 # simple-pastebin-monitor
 A simple pastebin monitor using the scraping API.
 
@@ -53,4 +63,3 @@ or with docker
 or you can be explicit about the registry (in the example below GitHub Container Registry)
 
 `podman run -d --name simple-pastebin-monitor -v /path/to/input-dir-containing-keywords.txt-and-optional-notifications.json:/input -v /path/to/store-pastes:/output ghcr.io/mikewilks/simple-pastebin-monitor`
-
